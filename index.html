@@ -1,42 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wahrscheinlichkeitsrechner</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>P(A1) Berechnung</title>
 </head>
 <body>
-    <h2>Wahrscheinlichkeitsrechner</h2>
+  <label for="conditionalProb">P(An|An+1):</label>
+  <input type="number" id="conditionalProb" value="0.9">
+  <label for="inverseConditionalProb">P(An|~An+1):</label>
+  <input type="number" id="inverseConditionalProb" value="0.1">
+  <button onclick="calculatePA1()">P(A1) berechnen</button>
+  <p id="result"></p>
 
-    <label for="pAnAnPlus1">P(An|An+1): </label>
-    <input type="number" step="0.01" id="pAnAnPlus1" value="0.9">
-    <br><br>
-    
-    <label for="pAnNotAnPlus1">P(An|~An+1): </label>
-    <input type="number" step="0.01" id="pAnNotAnPlus1" value="0.1">
-    <br><br>
-    
-    <button onclick="calculate()">Berechnen</button>
-    
-    <h3>Ergebnis:</h3>
-    <p id="result">P(A1) = ?</p>
-
-    <script>
-        function calculate() {
-            const pAnAnPlus1 = parseFloat(document.getElementById('pAnAnPlus1').value);
-            const pAnNotAnPlus1 = parseFloat(document.getElementById('pAnNotAnPlus1').value);
-
-            const q = pAnNotAnPlus1 + (pAnAnPlus1 - pAnNotAnPlus1) / (1 - (pAnAnPlus1 - pAnNotAnPlus1));
-
-            document.getElementById('result').textContent = 'P(A1) = ' + q.toFixed(2);
-        }
-    </script>
-
+  <script>
+    function calculatePA1() {
+      const conditionalProb = parseFloat(document.getElementById('conditionalProb').value);
+      const inverseConditionalProb = parseFloat(document.getElementById('inverseConditionalProb').value);
+      const q = (conditionalProb - inverseConditionalProb) / (1 - inverseConditionalProb);
+      const PA1 = inverseConditionalProb / (1 - q);
+      document.getElementById('result').innerText = `P(A1) = ${PA1}`;
+    }
+  </script>
 </body>
 </html>
